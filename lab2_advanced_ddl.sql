@@ -21,9 +21,9 @@ DROP TABLESPACE IF EXISTS student_data;
 DROP TABLESPACE IF EXISTS course_data;
 
 
--- =====================================================================
+
 -- PART 1: MULTIPLE DATABASE MANAGEMENT
--- =====================================================================
+
 
 -- Task 1.1: Database Creation with Parameters
 
@@ -42,9 +42,7 @@ CREATE DATABASE university_test
     CONNECTION LIMIT = 10;
 
 
--- Task 1.2: Tablespace Operations
--- NOTE: on macOS the root directory is read-only, so /data/... cannot be created.
--- The directories below were created beforehand and are owned by the postgres user.
+-- Task 1.2:
 
 CREATE TABLESPACE student_data
     LOCATION '/Users/Shared/pg_data/students';
@@ -61,9 +59,9 @@ CREATE DATABASE university_distributed
     LC_CTYPE = 'C';
 
 
--- =====================================================================
+
 -- PART 2: COMPLEX TABLE CREATION
--- =====================================================================
+
 
 \c university_main
 
@@ -133,9 +131,8 @@ CREATE TABLE student_records (
 );
 
 
--- =====================================================================
 -- PART 3: ADVANCED ALTER TABLE OPERATIONS
--- =====================================================================
+
 
 -- Task 3.1: Modifying Existing Tables
 
@@ -173,9 +170,9 @@ ALTER TABLE student_records ADD COLUMN final_exam_date DATE;
 ALTER TABLE student_records DROP COLUMN last_updated;
 
 
--- =====================================================================
+
 -- PART 4: TABLE RELATIONSHIPS AND MANAGEMENT
--- =====================================================================
+
 
 -- Task 4.1: Additional Supporting Tables
 
@@ -238,8 +235,7 @@ CREATE TABLE semester_calendar (
 );
 
 
--- Additional: remaining data types from the lecture
--- (smallserial, bigint, real, double precision)
+
 
 CREATE TABLE library_statistics (
     stat_id             SMALLSERIAL PRIMARY KEY,
@@ -250,9 +246,9 @@ CREATE TABLE library_statistics (
 );
 
 
--- =====================================================================
+
 -- PART 5: TABLE DELETION AND CLEANUP
--- =====================================================================
+
 
 -- Task 5.1: Conditional Table Operations
 
@@ -291,7 +287,6 @@ DROP DATABASE IF EXISTS university_test;
 
 DROP DATABASE IF EXISTS university_distributed;
 
--- A template database must have no active connections
 SELECT pg_terminate_backend(pid)
 FROM pg_stat_activity
 WHERE datname = 'university_main'
